@@ -1,11 +1,13 @@
 
 import pyautogui
 import time, json, webbrowser, os
+
 diepversion = "1.1"
 
 points = 7
 allpoints = 7 * 4 + 5
 special = "!"
+upgrades = "Health regen/Max health/Body demage/Bullet speed/Bullet penetration/Bullet demage/Reload/Movement speed/Special".split("/")
 
 logging = True
 
@@ -32,11 +34,12 @@ def save_presets():
 			print(" presets:\n%s" % json.dumps(presets))
 
 def check_preset(setup, dolog = True):
-	valid = type(setup) == str and ((len(setup) < allpoints and setup.isdecimal()) or setup[0].startswith(special))
+	valid = type(setup) == str and ((len(setup) < allpoints*2 and setup.isdecimal()) or setup[0].startswith(special))
 	if not valid:
-		print(" <Invalid preset code detected> ")
-		if logging and dolog:
-			print(" code: %s\n" % setup)
+		if dolog:
+			print(" <Invalid preset code detected> ")
+			if logging:
+				print(" code: %s\n" % setup)
 	return valid
 
 def pybox():
@@ -62,6 +65,28 @@ def run_type(setupstr, delay):
 	time.sleep(0.05)
 	pyautogui.keyUp('u')
 	print(" <Done in %ss>" % round(time.time() - before, 3))
+
+def print_details(setupstr):
+	props = {
+		"1": 0, "2": 0, "3": 0, "4": 0,
+		"5": 0, "6": 0, "7": 0, "8": 0,
+		"special": 0,
+	}
+	sp = setupstr[0] == special
+	if sp:
+		print(" <Special setup>")
+	for char in setupstr:
+		if char in props:
+			props[char] += 1
+		else:
+			props["special"] += 1
+	for upgd in range(len(upgrades)):
+		if not sp:
+			if upgd + 1 == len(upgrades):
+				continue
+		print((" " * (len(max(upgrades, key=len)) - len(upgrades[upgd]))) + upgrades[upgd] + " |" + (" #" * props[list(props.keys())[upgd]]))
+	
+	
 
 
 
@@ -120,11 +145,13 @@ def cmd_print(presetname = ""):
 		if selected:
 			print(" <Printing selected setup>")
 			print("  %s" % selected)
+			print_details(selected)
 		else:
 			print(" <No setup selected>")
 	elif str(presetname).lower() in presets:
 		print(" <Printing preset %s>" % presetname)
 		print("  %s" % presets[str(presetname).lower()])
+		print_details(presets[str(presetname).lower()])
 	elif str(presetname).lower() == "all":
 		print(" <Printing all presets>")
 		for nm, val in presets.items():
