@@ -14,6 +14,8 @@ logging = True
 presets = {}
 selected = None
 
+open('_presets.json','a+').close()
+
 def update_presets(dolog = False):
 	global presets
 	try:
