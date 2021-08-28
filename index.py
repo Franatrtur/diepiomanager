@@ -2,7 +2,7 @@
 import pyautogui
 import time, json, webbrowser, os
 
-diepversion = "1.1"
+diepversion = "1.2"
 
 points = 7
 allpoints = 7 * 4 + 5
