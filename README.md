@@ -1,3 +1,3 @@
-## *In development*
-# Upgrade setup manager for diep.io
-### Dont waste time focusing on upgrades mid-game
+## Diep.io setup manager
+A script that automatically manages upgrade presets for the game [diep.io](diep.io)
+It

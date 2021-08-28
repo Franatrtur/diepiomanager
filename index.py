@@ -97,8 +97,8 @@ def cmd_help():
 	print("Version: %s" % diepversion)
 	print("Author: Franatrtur")
 	print("Prefix for special presets: %s" % special)
-	print("Master commands:\n  exit = safely end the program\n  py = run python code (type py to exit python console)")
-	print("Diep commands:\n  save, create, delete, select, reload, print, run")
+	print("Master commands:\n  exit = safely end the program")
+	print("Diep commands:\n  save, create, delete [preset name], select [preset name/setup], reload, print [nothing/preset name/all], run [nothing(selected)/preset name/setup] [delay]")
 
 def cmd_save():
 	global presets
@@ -208,11 +208,11 @@ def main():
 		if inp == "exit":
 			save_presets()
 			break
-
+		"""
 		elif inp == "py":
 			pybox()
 			continue
-
+		"""
 		cmd = inp.split(" ")[0].lower()
 		args = inp.split(" ")[1:]
 
