@@ -107,7 +107,7 @@ def cmd_save():
 		print(" <Preset name cannot be a setup>")
 		presetname = input(" Valid preset name:")
 	presetsetup = input("Preset setup:")
-	if check_preset(presetsetup):
+	if check_preset(presetsetup) and (not presetsetup in presets.values() or input("You already have a this setup (%s), are you sure you want to add \"%s\"? (y/n)" % (list(presets.keys())[list(presets.values()).index(presetsetup)], presetname)).lower()[0] == "y"):
 		presets[str(presetname).lower()] = presetsetup
 
 def cmd_reload():
