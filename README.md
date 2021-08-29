@@ -3,6 +3,7 @@ A script that automatically manages upgrade presets for the game [diep.io](diep.
 It can remember all your favourite setups and set up your upgrades before the game.  
 You can simply run it and not get distracted by having to think about spending upg points.
 ### Usage
+__Main dependency:__ pyautogui `pip install pyautogui`
 Simply download the files from the repository and run index.py. done!  
 Type `help` to see all the available commands.  
 Open diep.io, join a game and use the `run` command in the script to run a preset.  
