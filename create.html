@@ -409,6 +409,8 @@ var DIEP = {
         
         if(!this.ready)
             throw "DIEP ERROR: not ready (init fail)"
+        
+        console.log("rendering...")
             
         byid("ctplus").setAttribute("class", this.zoom >= 200 ? "inactive" : "active")
         byid("ctminus").setAttribute("class", this.zoom <= 20 ? "inactive" : "active")
@@ -417,7 +419,7 @@ var DIEP = {
         
         byid("rb_undo").setAttribute("class", this.state.length > 0 ? "active" : "inactive")
         byid("rb_redo").setAttribute("class", this.undone.length > 0 ? "active" : "inactive")
-        byid("rb_export").setAttribute("class", "active " + (this.used >= 33 ? "recommended" : ""))
+        byid("rb_export").setAttribute("class", "active " + (this.used >= 33 ? "recommended" : "notrecommended"))
         
         byid("modetext").innerHTML = ["Normal", "Rammer", "God"][this.mode - 1]
         byid("mode").setAttribute("class", ["normal", "rammer", "god"][this.mode - 1])
@@ -442,7 +444,11 @@ var DIEP = {
     </div>
             `
         }
+
         byid("upgrades").innerHTML = newhtml
+
+        console.log("render done")
+
     },
     upgrade: function(perknum, redone = false){
         var props = this.getstatelist()
@@ -464,6 +470,7 @@ var DIEP = {
             return
         this.undone.push(this.state.slice(-1))
         this.state = this.state.slice(0, -1)
+        this.used--
         this.render()
     },
     redo: function(){
@@ -474,7 +481,6 @@ var DIEP = {
         this.state = ""
         this.used = 0
         this.undone = []
-        this.mode = 1
         this.render()
     },
     zoomin(){
